@@ -5,31 +5,30 @@ using UnityEngine;
 
 public class CarMotor : MonoBehaviour
 {
-    [SerializeField] private WheelCollider[] wheels;
     [SerializeField] private Transform[] wheelObjects;
-    [SerializeField] private float force;
+    [SerializeField] private float forwardSpeed;
+    [SerializeField] private float reverseSpeed;
+    [SerializeField] private Rigidbody sphereRB;
+    private float moveInput = 0;
+
+    private void Start()
+    {
+        sphereRB.transform.parent = null;
+    }
+
     public void Thrust(float controllerInput)
     {
-        for (int i = 0; i < wheels.Length; i++)
-        {
-            wheels[i].motorTorque = force * controllerInput;
-        }
+        moveInput = controllerInput * (controllerInput > 0 ? forwardSpeed : reverseSpeed);
+
+        transform.position = sphereRB.transform.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        UpdatePhyisicalWheels();
-    }
-
-    private void UpdatePhyisicalWheels()
-    {
-        for (int i = 0; i < wheels.Length; i++)
+        if (moveInput == 0)
         {
-            Vector3 position;
-            Quaternion rotation;
-            wheels[i].GetWorldPose(out position, out rotation);
-            wheelObjects[i].rotation = rotation;
-            wheelObjects[i].position = position;
+            return;
         }
+        sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
     }
 }

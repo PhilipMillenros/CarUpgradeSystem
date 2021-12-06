@@ -4,8 +4,8 @@ namespace Player
 {
     public interface IInputListener
     {
-        public void Move(Vector2 input);
-        public void LookAround(Vector2 input);
+        public void MoveAction(Vector2 input);
+        public void MouseAxis(Vector2 input);
         public void JumpAction();
         public void PrimaryAction();
         public void SecondaryAction();

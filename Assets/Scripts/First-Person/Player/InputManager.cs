@@ -40,12 +40,12 @@ namespace Player
                 Debug.Log($"More than one InputManager in scene");
             }
         }
-        private void Update()
+        private void LateUpdate()
         {
             if(InputListener == null)
                 return;
-            InputListener.Move(movementInput);
-            InputListener.LookAround(mouseInput);
+            InputListener.MoveAction(movementInput);
+            InputListener.MouseAxis(mouseInput);
         }
         public void SetInputListener(IInputListener inputListener)
         {

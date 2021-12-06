@@ -8,7 +8,6 @@ using UnityEngine;
 public class CarController : MonoBehaviour, IInputListener
 {
     private Vector2Int input;
-    [SerializeField] private ThirdPersonCamera thirdPersonCamera;
     [SerializeField] private CarMotor motor;
     [SerializeField] private Steering steering;
     private void Start()
@@ -16,14 +15,14 @@ public class CarController : MonoBehaviour, IInputListener
         InputManager.instance.SetInputListener(this);
     }
 
-    public void Move(Vector2 input)
+    public void MoveAction(Vector2 input)
     {
-        steering.SetSteering(input.x);
+        steering.SetSteering(input.x, input.y);
         motor.Thrust(input.y);
     }
-    public void LookAround(Vector2 input)
+    public void MouseAxis(Vector2 input)
     {
-        thirdPersonCamera.SetInput(input);
+        //thirdPersonCamera.SetInput(input);
     }
     public void JumpAction()
     {

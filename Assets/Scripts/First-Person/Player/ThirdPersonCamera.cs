@@ -11,19 +11,19 @@ namespace Player
         
         private float mouseX;
         private float mouseY;
-        private float yMin = -50.0f;
-        private float yMax = 50.0f;
+        [SerializeField] private float yMin = -50.0f;
+        [SerializeField] private float yMax = 50.0f;
 
         public void SetInput(Vector2 input)
         {
             mouseX += input.x * Time.deltaTime * sensitivity;
-            mouseY += -input.y * Time.deltaTime * sensitivity;
+            mouseY += input.y * Time.deltaTime * sensitivity;
         
             mouseY = Mathf.Clamp(mouseY, yMin, yMax);
 
-            Vector3 Direction = new Vector3(0, 0, -distance) + transform.forward;
+            Vector3 direction = new Vector3(0, 0, -distance) + cam.transform.forward;
             Quaternion rotation = Quaternion.Euler(mouseY, mouseX, 0);
-            cam.transform.position = lookAt.position + rotation * Direction;
+            cam.transform.position = lookAt.position + rotation * direction;
         
             cam.transform.LookAt(lookAt.position);
         }
