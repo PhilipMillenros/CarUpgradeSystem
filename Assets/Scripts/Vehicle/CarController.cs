@@ -17,8 +17,8 @@ public class CarController : MonoBehaviour, IInputListener
 
     public void MoveAction(Vector2 input)
     {
-        steering.SetSteering(input.x, input.y);
-        motor.Thrust(input.y);
+        steering.SetSteering(input);
+        motor.Thrust(input);
     }
     public void MouseAxis(Vector2 input)
     {

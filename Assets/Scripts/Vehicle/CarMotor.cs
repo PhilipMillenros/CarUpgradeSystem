@@ -8,7 +8,9 @@ public class CarMotor : MonoBehaviour
     [SerializeField] private Transform[] wheelObjects;
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float reverseSpeed;
+    [SerializeField] private float turnSpeed;
     [SerializeField] private Rigidbody sphereRB;
+    
     private float moveInput = 0;
 
     private void Start()
@@ -16,10 +18,10 @@ public class CarMotor : MonoBehaviour
         sphereRB.transform.parent = null;
     }
 
-    public void Thrust(float controllerInput)
+    public void Thrust(Vector2 controllerInput)
     {
-        moveInput = controllerInput * (controllerInput > 0 ? forwardSpeed : reverseSpeed);
-
+        moveInput = controllerInput.y * (controllerInput.y > 0 ? forwardSpeed : reverseSpeed) + Mathf.Abs(turnSpeed * controllerInput.x) * controllerInput.y;
+        
         transform.position = sphereRB.transform.position;
     }
 

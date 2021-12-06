@@ -1,33 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Steering : MonoBehaviour
 {
     [SerializeField] private Transform[] frontWheels;
     [SerializeField] private float maxSteeringAngle;
-    public float steeringAngle;
+    public float wheelAngle;
     private float steering;
-    [SerializeField] private float turnSpeed = 20f;
+    [SerializeField] private float turnBackSpeed = 5f;
+    [SerializeField] private float wheelTurningSpeed = 20f;
+    [SerializeField] private float maxTurningSpeed = 50f;
+    [SerializeField] private float turningSpeed = 0.5f;
+    [SerializeField] private SkidMark skidMark;
+    [SerializeField] private float skidMarkThreshold;
 
-    public void SetSteering(float horizontal, float vertical)
+    [SerializeField] private float currentTurnSpeed;
+
+    public void SetSteering(Vector2 input)
     {
-        if (horizontal == 0)
+        SteerCar(input);
+        SteerWheels(input);
+    }
+    private void SteerWheels(Vector2 input)
+    {
+        if (input.x == 0)
         {
-            if (steeringAngle > 0)
-                steeringAngle -= turnSpeed * Time.deltaTime;
-            else
-                steeringAngle += turnSpeed * Time.deltaTime;
+            wheelAngle = Mathf.Lerp(wheelAngle, 0, Time.deltaTime * turnBackSpeed);
         }
         else
-            steeringAngle += turnSpeed * horizontal * Time.deltaTime;
-        steeringAngle = Mathf.Clamp(steeringAngle, -maxSteeringAngle, maxSteeringAngle);
-        float newRotation = horizontal * turnSpeed * Time.deltaTime * vertical;
-        transform.Rotate(0, newRotation, 0, Space.World);
+            wheelAngle += wheelTurningSpeed * input.x * Time.deltaTime;
+        wheelAngle = Mathf.Clamp(wheelAngle, -maxSteeringAngle, maxSteeringAngle);
+
         for (int i = 0; i < frontWheels.Length; i++)
         {
-           // frontWheels[i].rotation = Quaternion.Euler(0, steeringAngle, 0);
-            
+            frontWheels[i].localRotation = Quaternion.Euler(0, 0, wheelAngle);
         }
+    }
+    private void SteerCar(Vector2 input)
+    {
+        if (input.y == 0)
+        {
+            currentTurnSpeed = 0;
+            return;
+        }
+        currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, maxTurningSpeed * input.x, turningSpeed * Time.deltaTime);
+        if((input.y > 0 && (Mathf.Abs(maxTurningSpeed) - Mathf.Abs(currentTurnSpeed)) < skidMarkThreshold))
+            skidMark.SetSkidEmitter(true);
+        else
+            skidMark.SetSkidEmitter(false);
+
+        transform.Rotate(0, currentTurnSpeed, 0, Space.World);
     }
 }

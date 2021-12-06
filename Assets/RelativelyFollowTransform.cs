@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[DefaultExecutionOrder(0)]
 public class RelativelyFollowTransform : MonoBehaviour
 {
     [SerializeField] private Transform target;
@@ -14,8 +14,9 @@ public class RelativelyFollowTransform : MonoBehaviour
         offset = transform.position - target.position;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        transform.position = target.position + offset;
+        Vector3 position = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, position, speed);
     }
 }
