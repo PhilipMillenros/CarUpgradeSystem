@@ -54,7 +54,7 @@ public class Gun : MonoBehaviour, IGun
         bullet.speed = bulletSpeed + rb.velocity.magnitude;
         bullet.transform.localScale = bulletSize;
         bullet.gameObject.SetActive(true);
-        CallbackTimer.AddTimer(bulletLifeTime, ()=> Destroy(bullet.gameObject));
+        CallbackTimer.AddTimer(bulletLifeTime, ()=> bulletPool.ReturnToPool(bullet));
     }
 }
 

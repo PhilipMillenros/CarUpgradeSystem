@@ -9,9 +9,9 @@ public class Exp : MonoBehaviour
     public static Action<Exp> OnExpPickup;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Stats stats))
+        if (other.TryGetComponent(out PlayerStats stats))
         {
-            stats.experience += exp;
+            stats.GainExp(exp);
             OnExpPickup?.Invoke(this);
         }
     }
