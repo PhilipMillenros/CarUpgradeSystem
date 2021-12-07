@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeSystem : MonoBehaviour
+public class LevelUpSystem : MonoBehaviour
 {
     private int[] expThresholds;
     [SerializeField] private int maxLevel;
