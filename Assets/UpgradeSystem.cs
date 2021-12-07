@@ -13,9 +13,9 @@ public class UpgradeSystem : MonoBehaviour
         PlayerStats.OnAnyPlayerLevelUp += LevelUpPlayer;
         expThresholds = new int[maxLevel + 1];
         expThresholds[0] = startExpThreshold;
-        for (int i = 0; i < maxLevel; i++)
+        for (int i = 1; i < maxLevel; i++)
         {
-            expThresholds[i] += CalculateExpThreshold(startExpThreshold, i);
+            expThresholds[i] += expThresholds[i - 1] + CalculateExpThreshold(expThresholds[i - 1], i);
         }
     }
     private void LevelUpPlayer(PlayerStats player)

@@ -21,7 +21,7 @@ public class CallbackTimer : MonoBehaviour
         for (int i = 0; i < timers.Count; i++)
         {
             timers[i].time -= Time.deltaTime;
-            if (timers[i].time < 0)
+            if (timers[i].time <= 0)
             {
                 timers[i].callback.Invoke();
                 timers.Remove(timers[i]);

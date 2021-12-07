@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+
+
 using UnityEngine;
 
 public class Gun : MonoBehaviour, IGun
@@ -12,16 +10,18 @@ public class Gun : MonoBehaviour, IGun
     [SerializeField] private Vector3 bulletSize;
     [SerializeField] private float bulletLifeTime;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float reloadTime;
-     
+    [SerializeField] private float weaponReloadTimeMultiplier = 1;
+
+
     private Vector3 lastPosition = Vector3.zero;
     private bool isShooting;
-    private float reloadTimeLeft;
+    private float reloadTime = 0;
     private bool reloaded = true;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
-        reloadTimeLeft = 0;
+        playerStats = GetComponentInParent<PlayerStats>();
     }
 
     public void IsShooting(bool isShooting)
@@ -33,18 +33,17 @@ public class Gun : MonoBehaviour, IGun
     {
         if (!reloaded)
         {
-            reloadTimeLeft -= Time.deltaTime;
-            if (reloadTimeLeft <= 0)
+            reloadTime -= Time.deltaTime;
+            if (reloadTime <= 0)
                 reloaded = true;
         }
         else if (isShooting)
         {
             Shoot();
             reloaded = false;
-            reloadTimeLeft = reloadTime;
+            reloadTime = playerStats.reloadTime * weaponReloadTimeMultiplier;
         }
     }
-
     private void Shoot()
     {
         Bullet bullet = bulletPool.Get();
