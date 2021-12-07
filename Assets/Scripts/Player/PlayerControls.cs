@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Vehicle/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Player/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -52,7 +52,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Mouse Right click"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""1528ced4-4bf1-4b18-90f2-1f36371c8c7f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -60,9 +60,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Mouse Left click"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""df0d39ec-c6b0-49c7-b011-1a1b851959f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },

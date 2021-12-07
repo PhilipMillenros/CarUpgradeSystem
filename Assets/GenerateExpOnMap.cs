@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ExpSpawner : MonoBehaviour
+public class GenerateExpOnMap : MonoBehaviour
 {
     [SerializeField] private int maxExpOrbsOnField;
     [SerializeField] private ExpOrbPool objectPool;

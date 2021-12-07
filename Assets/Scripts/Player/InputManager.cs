@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -17,13 +18,13 @@ namespace Player
             SetSingleton();
             controls = new PlayerControls();
             playerMovement = controls.Controls;
-            
             playerMovement.Spacebar.performed += _ => InputListener.JumpAction();
             playerMovement.MouseHorizontal.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
             playerMovement.MouseVertical.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
             playerMovement.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-            playerMovement.MouseRightclick.performed += _ => InputListener?.SecondaryAction();
-            playerMovement.MouseLeftclick.performed += _ => InputListener?.PrimaryAction();
+            playerMovement.MouseRightclick.performed += ctx => InputListener?.SecondaryAction(ctx);
+            playerMovement.MouseLeftclick.performed += ctx => InputListener?.PrimaryAction(ctx);
+
             playerMovement.F.performed += _ => InputListener?.SpecialAction();
             playerMovement.E.performed += _ => InputListener?.UseAction();
             playerMovement.Tab.performed += _ => InputListener?.SwitchAction();

@@ -13,14 +13,7 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
     
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
     public T Get()

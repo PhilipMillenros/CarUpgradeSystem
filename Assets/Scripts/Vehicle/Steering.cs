@@ -15,17 +15,34 @@ public class Steering : MonoBehaviour
     [SerializeField] private float maxTurningSpeed = 50f;
     [SerializeField] private float turningSpeed = 0.5f;
     [SerializeField] private SkidMark skidMark;
-    [SerializeField] private float skidMarkThreshold;
+    [SerializeField] private float skidMarkDelay; 
+    private float timerValue;
+    private Vector2 input;
 
     [SerializeField] private float currentTurnSpeed;
 
-    public void SetSteering(Vector2 input)
+    public void SetSteering(Vector2 controllerInput)
     {
-        SteerCar(input);
-        SteerWheels(input);
+        input = controllerInput;
+        if (input.x != 0 || input.y != 0)
+        {
+            input.x = ConvertToWholeNumber(input.x);
+            input.y = ConvertToWholeNumber(input.y);
+        }
+        SteerCar();
+        SteerWheels();
+        EmitSkidMarks();
     }
-    private void SteerWheels(Vector2 input)
+    
+    private float ConvertToWholeNumber(float value)
     {
+        value = (int)Mathf.Round(value);
+        return value;
+    }
+    private void SteerWheels()
+    {
+        if (input.y < 0)
+            input.x = -input.x;
         if (input.x == 0)
         {
             wheelAngle = Mathf.Lerp(wheelAngle, 0, Time.deltaTime * turnBackSpeed);
@@ -39,19 +56,33 @@ public class Steering : MonoBehaviour
             frontWheels[i].localRotation = Quaternion.Euler(0, 0, wheelAngle);
         }
     }
-    private void SteerCar(Vector2 input)
+    private void SteerCar()
     {
         if (input.y == 0)
         {
             currentTurnSpeed = 0;
             return;
         }
-        currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, maxTurningSpeed * input.x, turningSpeed * Time.deltaTime);
-        if((input.y > 0 && (Mathf.Abs(maxTurningSpeed) - Mathf.Abs(currentTurnSpeed)) < skidMarkThreshold))
+        if (input.y < 0)
+            input.x = -input.x;
+        currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, maxTurningSpeed * input.x, turningSpeed) * Time.deltaTime;
+        transform.Rotate(0, currentTurnSpeed, 0, Space.World);
+    }
+
+    private void EmitSkidMarks()
+    {
+        if (input.x != 0 && input.y != 0)
+        {
+            timerValue += Time.deltaTime;
+        }
+        else
+            timerValue = 0;
+
+        if (timerValue >= skidMarkDelay && input.y > 0)
+        {
             skidMark.SetSkidEmitter(true);
+        }
         else
             skidMark.SetSkidEmitter(false);
-
-        transform.Rotate(0, currentTurnSpeed, 0, Space.World);
     }
 }
