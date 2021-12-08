@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SmallGun : Weapon
 {
-    private void Shoot()
+    protected override void Shoot()
     {
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position;

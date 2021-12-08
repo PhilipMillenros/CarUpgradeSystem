@@ -9,12 +9,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected float bulletLifeTime;
     [SerializeField] protected Rigidbody movement;
     [SerializeField] protected float weaponReloadTimeMultiplier = 1;
-
+    [SerializeField] private float reloadTime = 0;
+    
     public Weapon[] upgradeVariants;
-    protected bool isShooting;
-    protected float reloadTime = 0;
-    protected bool reloaded = true;
-    protected PlayerClient playerClient;
+    private bool isShooting;
+    
+    private bool reloaded = true;
+    private PlayerClient playerClient;
 
     protected void Awake()
     {
@@ -41,15 +42,5 @@ public class Weapon : MonoBehaviour
             reloadTime = playerClient.reloadTime * weaponReloadTimeMultiplier;
         }
     }
-    protected void Shoot()
-    {
-        //Bullet bullet = bulletPool.Get();
-        //bullet.transform.position = transform.position;
-        //bullet.transform.rotation = transform.rotation;
-        //bullet.damage = damage;
-        //bullet.speed = bulletSpeed + movement.velocity.magnitude;
-        //bullet.transform.localScale = bulletSize;
-        //bullet.gameObject.SetActive(true);
-        //CallbackTimer.AddTimer(bulletLifeTime, ()=> bulletPool.ReturnToPool(bullet));
-    }
+    protected virtual void Shoot(){ }
 }
