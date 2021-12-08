@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] protected BulletPool bulletPool;
     [SerializeField] protected float damage;
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected Vector3 bulletSize;
@@ -22,10 +21,8 @@ public class Weapon : MonoBehaviour
     protected void Awake()
     {
         playerClient = GetComponentInParent<PlayerClient>();
-        if (TryGetComponent(out CarMotor motor))
-            movement = motor.sphereRB;
-        else
-            movement = gameObject.AddComponent<Rigidbody>();
+        movement = GetComponentInParent<CarMotor>() ? 
+            GetComponentInParent<CarMotor>().sphereRB : gameObject.AddComponent<Rigidbody>();
     }
 
     public void IsShooting(bool isShooting)

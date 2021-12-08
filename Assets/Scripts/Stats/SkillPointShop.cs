@@ -9,18 +9,23 @@ public class SkillPointShop : MonoBehaviour
 {
     [SerializeField] private Button[] buttons;
     [SerializeField] private GameObject tutorial;
-    private void Awake()
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI skillPointsText;
+    
+    private void Start()
     {
-        PlayerClient.OnAnyPlayerLevelUp = OnPlayerLevelUp;
+        PlayerClient.OnAnyPlayerLevelUp += OnPlayerLevelUp;
     }
     private void OnPlayerLevelUp(PlayerClient player)
     {
         //Networking implementation
         EnableSkillPointButtons(true);
+        UpdateLevelText(player);
     }
     
     private void ConsumeSkillPoint(PlayerClient player)
     {
+        Debug.Log("called");
         player.skillPoints--;
         if (player.skillPoints <= 0)
         {
@@ -28,6 +33,7 @@ public class SkillPointShop : MonoBehaviour
         }
         if(tutorial != null)
             tutorial.SetActive(false);
+        UpdateLevelText(player);
     }
     public void EnableSkillPointButtons(bool enable)
     {
@@ -35,6 +41,12 @@ public class SkillPointShop : MonoBehaviour
         {
             buttons[i].gameObject.SetActive(enable);
         }
+    }
+    private void UpdateLevelText(PlayerClient player)
+    {
+        //Networking
+        levelText.SetText( $"Level: {player.level + 1}");
+        skillPointsText.SetText( $"Skill Points: {player.skillPoints}");
     }
     public void BuySkill(PlayerClient player, Skill skill)
     {

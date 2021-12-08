@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SmallGun : Weapon
 {
+    private GenericObjectPool<Bullet> bulletPool;
+
+    private void Start()
+    {
+        bulletPool = BulletPool.Instance;
+    }
+
     protected override void Shoot()
     {
         Bullet bullet = bulletPool.Get();

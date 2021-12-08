@@ -25,7 +25,6 @@ public class LevelUpSystem : MonoBehaviour
             return;
         player.level++;
         player.experienceThreshold = expThresholds[player.level];
-        Debug.Log("Level up to: " + player.level);
     }
     private int CalculateExpThreshold(int expThreshold, int index)
     {

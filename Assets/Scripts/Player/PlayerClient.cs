@@ -7,7 +7,7 @@ public class PlayerClient : MonoBehaviour, IEntity
 {
     [HideInInspector] public float experience;
     [HideInInspector] public float experienceThreshold;
-    [HideInInspector] public int skillPoints;
+    [SerializeField] public int skillPoints;
     [SerializeField] private float regenerationInterval;
     public static Action<PlayerClient> OnAnyPlayerLevelUp;
     
