@@ -9,7 +9,7 @@ public class CarController : MonoBehaviour, IInputListener
     private Vector2Int input;
     [SerializeField] private CarMotor motor;
     [SerializeField] private Steering steering;
-    public List<Gun> guns = new List<Gun>();
+    public List<Weapon> guns = new List<Weapon>();
     private float primaryActionDelay = 1;
     private bool primaryActionHeld;
     private bool secondaryActionHeld;

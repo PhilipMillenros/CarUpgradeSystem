@@ -10,7 +10,8 @@ public class CarMotor : MonoBehaviour
     [SerializeField] private float reverseSpeed;
     [SerializeField] private float turnSpeed;
     [SerializeField] private Rigidbody sphereRB;
-    
+    public float speedMultiplier;
+
     private float moveInput = 0;
 
     private void Start()
@@ -31,6 +32,6 @@ public class CarMotor : MonoBehaviour
         {
             return;
         }
-        sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+        sphereRB.AddForce(transform.forward * (moveInput * speedMultiplier), ForceMode.Acceleration);
     }
 }

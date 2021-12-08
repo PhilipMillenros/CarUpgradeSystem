@@ -16,7 +16,7 @@ public class Skill : MonoBehaviour
     public int skillLevel = 1;
     public int maxSkillLevel;
     public TextMeshProUGUI skillLevelText;
-    [SerializeField] private PlayerStats buyer; //Temp for networking
+    [SerializeField] private PlayerClient buyer; //Temp for networking
     private SkillPointShop shop;
     
     private void Awake()

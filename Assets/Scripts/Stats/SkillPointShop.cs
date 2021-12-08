@@ -11,27 +11,28 @@ public class SkillPointShop : MonoBehaviour
     [SerializeField] private GameObject tutorial;
     private void Awake()
     {
-        PlayerStats.OnAnyPlayerLevelUp = OnPlayerLevelUp;
+        PlayerClient.OnAnyPlayerLevelUp = OnPlayerLevelUp;
     }
 
-    private void OnPlayerLevelUp(PlayerStats player)
+    private void OnPlayerLevelUp(PlayerClient player)
     {
         //Networking implementation
         EnableSkillPointButtons(true);
     }
 
-    public void BuySkill(PlayerStats player, Skill skill)
+    public void BuySkill(PlayerClient player, Skill skill)
     {
         player.regeneration += skill.regeneration;
         player.Armor += skill.defense;
         player.Damage += skill.damage;
-        player.speed += skill.speed;
         player.reloadTime -= skill.fireRate;
         player.transform.localScale += new Vector3(skill.size, skill.size, skill.size);
         player.transform.position += new Vector3(0, skill.size, 0);
+        if(player.gameObject.TryGetComponent(out CarMotor motor)) 
+            motor.speedMultiplier += skill.speed;
         ConsumeSkillPoint(player);
     }
-    private void ConsumeSkillPoint(PlayerStats player)
+    private void ConsumeSkillPoint(PlayerClient player)
     {
         player.skillPoints--;
         if (player.skillPoints <= 0)

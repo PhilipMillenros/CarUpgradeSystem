@@ -10,7 +10,7 @@ public class LevelUpSystem : MonoBehaviour
     [SerializeField] private int startExpThreshold;
     private void Awake()
     {
-        PlayerStats.OnAnyPlayerLevelUp += LevelUpPlayer;
+        PlayerClient.OnAnyPlayerLevelUp += LevelUpPlayer;
         expThresholds = new int[maxLevel + 1];
         expThresholds[0] = startExpThreshold;
         for (int i = 1; i < maxLevel; i++)
@@ -18,7 +18,7 @@ public class LevelUpSystem : MonoBehaviour
             expThresholds[i] += expThresholds[i - 1] + CalculateExpThreshold(expThresholds[i - 1], i);
         }
     }
-    private void LevelUpPlayer(PlayerStats player)
+    private void LevelUpPlayer(PlayerClient player)
     {
         player.skillPoints++;
         if (player.level == maxLevel)
