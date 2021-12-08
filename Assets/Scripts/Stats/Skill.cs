@@ -24,11 +24,9 @@ public class Skill : MonoBehaviour
         shop = GetComponentInParent<SkillPointShop>();
         skillLevelText = GetComponentInChildren<TextMeshProUGUI>();
     }
-
     public void BuySkill()
     {
         shop.BuySkill(buyer, this);
-        Debug.Log("yes");
         skillLevelText.text = $"Lv. {++skillLevel}";
     }
 }

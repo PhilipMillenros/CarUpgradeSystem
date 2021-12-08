@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GenerateExpOnMap : MonoBehaviour
+public class SpawnExpOrbs : MonoBehaviour
 {
     [SerializeField] private int maxExpOrbsOnField;
     [SerializeField] private ExpOrbPool objectPool;
     [SerializeField] private float yPosition;
     private void Awake()
     {
-        Exp.OnExpPickup += ReCycleOrb; //Observer pattern
+        Exp.OnExpPickup += ReCycleOrb;
         for (int i = 0; i < maxExpOrbsOnField; i++)
         {
             SpawnNewOrb();

@@ -13,25 +13,12 @@ public class SkillPointShop : MonoBehaviour
     {
         PlayerClient.OnAnyPlayerLevelUp = OnPlayerLevelUp;
     }
-
     private void OnPlayerLevelUp(PlayerClient player)
     {
         //Networking implementation
         EnableSkillPointButtons(true);
     }
-
-    public void BuySkill(PlayerClient player, Skill skill)
-    {
-        player.regeneration += skill.regeneration;
-        player.Armor += skill.defense;
-        player.Damage += skill.damage;
-        player.reloadTime -= skill.fireRate;
-        player.transform.localScale += new Vector3(skill.size, skill.size, skill.size);
-        player.transform.position += new Vector3(0, skill.size, 0);
-        if(player.gameObject.TryGetComponent(out CarMotor motor)) 
-            motor.speedMultiplier += skill.speed;
-        ConsumeSkillPoint(player);
-    }
+    
     private void ConsumeSkillPoint(PlayerClient player)
     {
         player.skillPoints--;
@@ -48,5 +35,17 @@ public class SkillPointShop : MonoBehaviour
         {
             buttons[i].gameObject.SetActive(enable);
         }
+    }
+    public void BuySkill(PlayerClient player, Skill skill)
+    {
+        player.regeneration += skill.regeneration;
+        player.Armor += skill.defense;
+        player.Damage += skill.damage;
+        player.reloadTime -= skill.fireRate;
+        player.transform.localScale += new Vector3(skill.size, skill.size, skill.size);
+        player.transform.position += new Vector3(0, skill.size, 0);
+        if(player.gameObject.TryGetComponent(out CarMotor motor)) 
+            motor.speedMultiplier += skill.speed;
+        ConsumeSkillPoint(player);
     }
 }

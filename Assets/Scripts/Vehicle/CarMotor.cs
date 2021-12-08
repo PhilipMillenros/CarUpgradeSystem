@@ -9,7 +9,7 @@ public class CarMotor : MonoBehaviour
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float reverseSpeed;
     [SerializeField] private float turnSpeed;
-    [SerializeField] private Rigidbody sphereRB;
+    public Rigidbody sphereRB;
     public float speedMultiplier;
 
     private float moveInput = 0;
