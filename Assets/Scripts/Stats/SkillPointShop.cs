@@ -25,7 +25,6 @@ public class SkillPointShop : MonoBehaviour
     
     private void ConsumeSkillPoint(PlayerClient player)
     {
-        Debug.Log("called");
         player.skillPoints--;
         if (player.skillPoints <= 0)
         {

@@ -35,7 +35,7 @@ public class CarController : MonoBehaviour, IInputListener
     {
         for (int i = 0; i < guns.Count; i++)
         {
-            guns[i].IsShooting(ctx.control.IsPressed());
+            guns[i]?.IsShooting(ctx.control.IsPressed());
         }
     }
 

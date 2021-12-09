@@ -6,8 +6,9 @@ using UnityEngine;
 public class SmallGun : Weapon
 {
     private GenericObjectPool<Bullet> bulletPool;
+    [SerializeField] private Transform bulletOrigin;
 
-    private void Start()
+    private void Awake()
     {
         bulletPool = BulletPool.Instance;
     }
@@ -15,10 +16,10 @@ public class SmallGun : Weapon
     protected override void Shoot()
     {
         Bullet bullet = bulletPool.Get();
-        bullet.transform.position = transform.position;
-        bullet.transform.rotation = transform.rotation;
+        bullet.transform.position = bulletOrigin.position;
+        bullet.transform.rotation = bulletOrigin.rotation;
         bullet.damage = damage;
-        bullet.speed = bulletSpeed + movement.velocity.magnitude;
+        bullet.speed = bulletSpeed + (movement.velocity.magnitude * bulletOrigin.forward).magnitude;
         bullet.transform.localScale = bulletSize;
         bullet.gameObject.SetActive(true);
         CallbackTimer.AddTimer(bulletLifeTime, ()=> bulletPool.ReturnToPool(bullet));

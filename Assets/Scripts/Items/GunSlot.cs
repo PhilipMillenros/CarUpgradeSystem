@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine;
 public class GunSlot : MonoBehaviour
 {
     [SerializeField] private Weapon heldWeapon;
-    [SerializeField] private Weapon[] startGunOptions;
- 
+    [SerializeField] private Weapon[] startWeaponOptions;
+
     public void SetGun(Weapon weapon)
     {
         if (heldWeapon != null)
@@ -21,7 +22,7 @@ public class GunSlot : MonoBehaviour
     {
         if (heldWeapon == null)
         {
-            return startGunOptions;
+            return startWeaponOptions;
         }
         return heldWeapon.upgradeVariants;
     }

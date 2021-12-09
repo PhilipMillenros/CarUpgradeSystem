@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -18,11 +20,11 @@ public class Weapon : MonoBehaviour
     private bool reloaded = true;
     private PlayerClient playerClient;
 
-    protected void Awake()
+    protected void Start()
     {
         playerClient = GetComponentInParent<PlayerClient>();
-        movement = GetComponentInParent<CarMotor>() ? 
-            GetComponentInParent<CarMotor>().sphereRB : gameObject.AddComponent<Rigidbody>();
+        movement = transform.root.GetComponent<CarMotor>().sphereRB;
+        transform.root.GetComponent<CarController>().guns.Add(this);
     }
 
     public void IsShooting(bool isShooting)
@@ -45,5 +47,10 @@ public class Weapon : MonoBehaviour
             reloadTime = playerClient.reloadTime * weaponReloadTimeMultiplier;
         }
     }
-    protected virtual void Shoot(){ }
+    protected virtual void Shoot() { }
+
+    private void OnDestroy()
+    {
+        transform.root.GetComponent<CarController>().guns.Remove(this);
+    }
 }

@@ -29,6 +29,7 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
     {
         T newObject = Instantiate(prefab);
         newObject.gameObject.SetActive(false);
+        newObject.transform.parent = transform;
         objects.Enqueue(newObject);
     }
 }

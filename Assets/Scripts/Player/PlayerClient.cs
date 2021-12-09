@@ -11,11 +11,11 @@ public class PlayerClient : MonoBehaviour, IEntity
     [SerializeField] private float regenerationInterval;
     public static Action<PlayerClient> OnAnyPlayerLevelUp;
     
-    
     public float regeneration;
     public float reloadTime;
     public float maxHealth;
     public GunSlot[] gunSlots;
+    public int weaponUpgrades;
     public int level;
     public float Health { get; set; }
     public float Armor { get; set; }

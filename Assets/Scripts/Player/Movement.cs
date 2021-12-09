@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private float speed = 11f;
     private Vector2 horizontalInput;
-
     [SerializeField] private float jumpHeight = 3.5f;
     private bool jump;
     [SerializeField] private float gravity = -30f;

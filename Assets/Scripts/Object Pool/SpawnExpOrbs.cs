@@ -9,6 +9,7 @@ public class SpawnExpOrbs : MonoBehaviour
     [SerializeField] private int maxExpOrbsOnField;
     [SerializeField] private ExpOrbPool objectPool;
     [SerializeField] private float yPosition;
+    [SerializeField] private float randomDistanceRange;
     private void Awake()
     {
         Exp.OnExpPickup += ReCycleOrb;
@@ -25,7 +26,7 @@ public class SpawnExpOrbs : MonoBehaviour
     public void SpawnNewOrb()
     {
         Exp newOrb = objectPool.Get();
-        newOrb.transform.position = new Vector3(Random.Range(0, 1000), yPosition, Random.Range(0, 1000));
+        newOrb.transform.position = new Vector3(Random.Range(0, randomDistanceRange), yPosition, Random.Range(0, randomDistanceRange));
         newOrb.transform.rotation = Quaternion.identity;
         newOrb.gameObject.SetActive(true);
     }

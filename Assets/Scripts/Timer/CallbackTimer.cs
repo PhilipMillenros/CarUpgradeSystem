@@ -15,7 +15,6 @@ public class CallbackTimer : MonoBehaviour
         else
             instance = this;
     }
-
     private void Update()
     {
         for (int i = 0; i < timers.Count; i++)
@@ -28,7 +27,6 @@ public class CallbackTimer : MonoBehaviour
             }
         }
     }
-
     public static void AddTimer(float time, Action callback)
     {
         timers.Add(new Timer(time, callback));

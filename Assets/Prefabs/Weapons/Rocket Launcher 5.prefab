@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1149007652340968387}
-  - component: {fileID: 5002207114300563301}
+  - component: {fileID: -9148262380611367966}
   m_Layer: 8
   m_Name: Rocket Launcher 5
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5002207114300563301
+--- !u!114 &-9148262380611367966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5195326013776845850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 423ff01068ecd0245ae456166b2abe91, type: 3}
+  m_Script: {fileID: 11500000, guid: ecca457ecf4c191439c744fd502c9c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPool: {fileID: 0}
   damage: 0
   bulletSpeed: 0
   bulletSize: {x: 0, y: 0, z: 0}
   bulletLifeTime: 0
   weaponReloadTimeMultiplier: 1
   reloadTime: 0
-  displayPrefab: {fileID: 1054382937084431847, guid: 0cacb4f6fbdd04e4f8908ef6e1387beb,
+  displayPrefab: {fileID: 5872075530578422835, guid: af76ba7796068a34a9097da2a529f81a,
     type: 3}
-  upgradeVariants: []
+  upgradeVariants:
+  - {fileID: -822035562502408294, guid: 76c63ce3619f6254d9beac4c30116c07, type: 3}
 --- !u!1 &6911196512084313266
 GameObject:
   m_ObjectHideFlags: 0
