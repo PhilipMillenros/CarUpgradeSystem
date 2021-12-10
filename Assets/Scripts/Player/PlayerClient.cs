@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerClient : MonoBehaviour, IEntity
 {
+    public static Action<PlayerClient> OnAnyPlayerLevelUp;
     [HideInInspector] public float experienceThreshold;
     [SerializeField] public int skillPoints;
     [SerializeField] private float regenerationInterval;
-    
+
     public float regeneration;
     public float reloadTime;
     public float maxHealth;
@@ -18,42 +17,38 @@ public class PlayerClient : MonoBehaviour, IEntity
     public float Health { get; set; }
     public float Armor { get; set; }
     public float Damage { get; set; }
-    
-    public float Experience { get; set; }
-    
-    public static Action<PlayerClient> OnAnyPlayerLevelUp;
 
     private void Awake()
     {
         Health = maxHealth;
         Regenerate();
     }
+
+    public float Experience { get; set; }
+
+    public void TakeDamage(float damage, IEntity sender)
+    {
+        if (Armor >= damage)
+            return;
+        Health -= damage - Armor;
+        if (Health <= 0) OnDeath();
+    }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
     public void GainExp(float amount)
     {
         Experience += amount;
-        if (Experience > experienceThreshold)
-        {
-            OnAnyPlayerLevelUp.Invoke(this);
-        }
+        if (Experience > experienceThreshold) OnAnyPlayerLevelUp.Invoke(this);
     }
+
     private void Regenerate()
     {
         if (Health >= maxHealth) return;
         Health += regeneration;
         CallbackTimer.AddTimer(regenerationInterval, Regenerate);
-    }
-    public void TakeDamage(float damage, IEntity sender)
-    {
-        if(Armor >= damage)
-            return;
-        Health -= (damage - Armor);
-        if (Health <= 0)
-        {
-            OnDeath();
-        }
-    }
-    public void OnDeath()
-    {
-        Destroy(gameObject);
     }
 }

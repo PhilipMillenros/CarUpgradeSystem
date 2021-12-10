@@ -1,22 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IEntity
 {
+    public static Action<Obstacle> OnObstacleDeath;
     [SerializeField] private float health;
     [SerializeField] private float expGain;
-    public static Action<Obstacle> OnObstacleDeath;
-    public float Experience { get; set; }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerClient player))
-        {
-            TakeDamage(player.Damage, player);
-        }
+        if (other.TryGetComponent(out PlayerClient player)) TakeDamage(player.Damage, player);
     }
-    
+
+    public float Experience { get; set; }
+
 
     public void TakeDamage(float damage, IEntity sender)
     {

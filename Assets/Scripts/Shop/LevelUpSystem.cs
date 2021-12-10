@@ -1,23 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUpSystem : MonoBehaviour
 {
-    private int[] expThresholds;
     [SerializeField] private int maxLevel;
     [SerializeField] private int startExpThreshold;
+    private int[] expThresholds;
+
     private void Awake()
     {
         PlayerClient.OnAnyPlayerLevelUp += LevelUpPlayer;
         expThresholds = new int[maxLevel + 1];
         expThresholds[0] = startExpThreshold;
-        for (int i = 1; i < maxLevel; i++)
-        {
+        for (var i = 1; i < maxLevel; i++)
             expThresholds[i] += expThresholds[i - 1] + CalculateExpThreshold(expThresholds[i - 1], i);
-        }
     }
+
     private void LevelUpPlayer(PlayerClient player)
     {
         player.skillPoints++;
@@ -26,8 +23,9 @@ public class LevelUpSystem : MonoBehaviour
         player.level++;
         player.experienceThreshold = expThresholds[player.level];
     }
+
     private int CalculateExpThreshold(int expThreshold, int index)
     {
-        return (expThreshold / 2);
+        return expThreshold / 2;
     }
 }

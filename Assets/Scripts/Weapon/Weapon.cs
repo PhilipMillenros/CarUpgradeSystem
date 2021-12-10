@@ -1,6 +1,5 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using Vehicle;
 
 public class Weapon : MonoBehaviour
 {
@@ -8,28 +7,23 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected Vector3 bulletSize;
     [SerializeField] protected float bulletLifeTime;
-     
+
     [SerializeField] protected float weaponReloadTimeMultiplier = 1;
-    [SerializeField] private float reloadTime = 0;
+    [SerializeField] private float reloadTime;
 
     public GameObject displayPrefab;
     public Weapon[] upgradeVariants;
     private bool isShooting;
     protected Rigidbody movement;
-    
-    private bool reloaded = true;
     private PlayerClient playerClient;
+
+    private bool reloaded = true;
 
     protected void Start()
     {
         playerClient = GetComponentInParent<PlayerClient>();
         movement = transform.root.GetComponent<CarMotor>().sphereRB;
         transform.root.GetComponent<CarController>().guns.Add(this);
-    }
-
-    public void IsShooting(bool isShooting)
-    {
-        this.isShooting = isShooting;
     }
 
     protected void Update()
@@ -47,10 +41,18 @@ public class Weapon : MonoBehaviour
             reloadTime = playerClient.reloadTime * weaponReloadTimeMultiplier;
         }
     }
-    protected virtual void Shoot() { }
 
     private void OnDestroy()
     {
         transform.root.GetComponent<CarController>().guns.Remove(this);
+    }
+
+    public void IsShooting(bool isShooting)
+    {
+        this.isShooting = isShooting;
+    }
+
+    protected virtual void Shoot()
+    {
     }
 }

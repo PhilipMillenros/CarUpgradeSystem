@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SkidMark : MonoBehaviour
+namespace Vehicle
 {
-    [SerializeField] private TrailRenderer[] skidMarkTrails;
-    public void SetSkidEmitter(bool isEmitting)
+    public class SkidMark : MonoBehaviour
     {
-        for (int i = 0; i < skidMarkTrails.Length; i++)
+        [SerializeField] private TrailRenderer[] skidMarkTrails;
+
+        public void SetSkidEmitter(bool isEmitting)
         {
-            skidMarkTrails[i].emitting = isEmitting;
+            for (var i = 0; i < skidMarkTrails.Length; i++) skidMarkTrails[i].emitting = isEmitting;
         }
     }
 }

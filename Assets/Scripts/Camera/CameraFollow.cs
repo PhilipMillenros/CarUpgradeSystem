@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -16,13 +13,13 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        float currentAngle = transform.eulerAngles.y;
-        float desiredAngle = target.transform.eulerAngles.y;
-        float angle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * damping);
-         
-        Quaternion rotation = Quaternion.Euler(0, angle, 0);
-        transform.position = target.transform.position - (rotation * offset);
-         
+        var currentAngle = transform.eulerAngles.y;
+        var desiredAngle = target.transform.eulerAngles.y;
+        var angle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * damping);
+
+        var rotation = Quaternion.Euler(0, angle, 0);
+        transform.position = target.transform.position - rotation * offset;
+
         transform.LookAt(target.transform);
     }
 }

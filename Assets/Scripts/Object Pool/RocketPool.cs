@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketPool : MonoBehaviour
+namespace Object_Pool
 {
+    public class RocketPool : MonoBehaviour
+    {
+    }
 }

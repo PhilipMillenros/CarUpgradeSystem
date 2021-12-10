@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Object_Pool;
 using UnityEngine;
 
 public class SmallGun : Weapon
 {
-    private GenericObjectPool<Bullet> bulletPool;
     [SerializeField] private Transform bulletOrigin;
+    private GenericObjectPool<Bullet> bulletPool;
 
     private void Awake()
     {
@@ -15,13 +13,13 @@ public class SmallGun : Weapon
 
     protected override void Shoot()
     {
-        Bullet bullet = bulletPool.Get();
+        var bullet = bulletPool.Get();
         bullet.transform.position = bulletOrigin.position;
         bullet.transform.rotation = bulletOrigin.rotation;
         bullet.damage = damage;
-        bullet.speed = bulletSpeed + (movement.velocity.magnitude * bulletOrigin.forward).magnitude;
+        bullet.speed = (movement.velocity + bulletOrigin.forward * bulletSpeed).magnitude;
         bullet.transform.localScale = bulletSize;
         bullet.gameObject.SetActive(true);
-        CallbackTimer.AddTimer(bulletLifeTime, ()=> bulletPool.ReturnToPool(bullet));
+        CallbackTimer.AddTimer(bulletLifeTime, () => bulletPool.ReturnToPool(bullet));
     }
 }

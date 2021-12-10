@@ -1,58 +1,47 @@
-using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : MonoBehaviour, IInputListener
+namespace Vehicle
 {
-    private Vector2Int input;
-    [SerializeField] private CarMotor motor;
-    [SerializeField] private Steering steering;
-    public List<Weapon> guns = new List<Weapon>();
-    private float primaryActionDelay = 1;
-    private bool primaryActionHeld;
-    private bool secondaryActionHeld;
-    private void Start()
+    public class CarController : MonoBehaviour, IInputListener
     {
-        InputManager.instance.SetInputListener(this);
-    }
+        [SerializeField] private CarMotor motor;
+        [SerializeField] private Steering steering;
+        public List<Weapon> guns = new();
+        private Vector2Int input;
+        private float primaryActionDelay = 1;
+        private bool primaryActionHeld;
+        private bool secondaryActionHeld;
 
-    public void MoveAction(Vector2 input)
-    {
-        steering.SetSteering(input);
-        motor.Thrust(input);
-    }
-    public void MouseAxis(Vector2 input)
-    {
-        //thirdPersonCamera.SetInput(input);
-    }
-    public void JumpAction()
-    {
-        
-    }
-    public void PrimaryAction(InputAction.CallbackContext ctx)
-    {
-        for (int i = 0; i < guns.Count; i++)
+        private void Start()
         {
-            guns[i]?.IsShooting(ctx.control.IsPressed());
+            InputManager.instance.SetInputListener(this);
         }
-    }
 
-    public void SecondaryAction(InputAction.CallbackContext ctx)
-    {
-        
-    }
-    public void SwitchAction()
-    {
-        
-    }
-    public void SpecialAction()
-    {
-        
-    }
-    public void UseAction()
-    {
-        
+        public void MoveAction(Vector2 input)
+        {
+            steering.SetSteering(input);
+            motor.Thrust(input);
+        }
+
+        public void MouseAxis(Vector2 input)
+        {
+            //thirdPersonCamera.SetInput(input);
+        }
+
+        public void JumpAction()
+        {
+        }
+
+        public void PrimaryAction(InputAction.CallbackContext ctx)
+        {
+            for (var i = 0; i < guns.Count; i++) guns[i]?.IsShooting(ctx.control.IsPressed());
+        }
+
+        public void SecondaryAction(InputAction.CallbackContext ctx)
+        {
+        }
     }
 }

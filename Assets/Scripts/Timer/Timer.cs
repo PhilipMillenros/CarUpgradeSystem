@@ -1,8 +1,9 @@
 ﻿using System;
+
 public class Timer
-{ 
-    public float time; 
+{
     public Action callback;
+    public float time;
 
     public Timer(float time, Action callback)
     {

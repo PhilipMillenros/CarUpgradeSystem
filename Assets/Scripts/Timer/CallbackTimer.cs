@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CallbackTimer : MonoBehaviour
 {
-    public static List<Timer> timers = new List<Timer>();
+    public static List<Timer> timers = new();
     private CallbackTimer instance;
 
     private void Awake()
@@ -15,9 +14,10 @@ public class CallbackTimer : MonoBehaviour
         else
             instance = this;
     }
+
     private void Update()
     {
-        for (int i = 0; i < timers.Count; i++)
+        for (var i = 0; i < timers.Count; i++)
         {
             timers[i].time -= Time.deltaTime;
             if (timers[i].time <= 0)
@@ -27,6 +27,7 @@ public class CallbackTimer : MonoBehaviour
             }
         }
     }
+
     public static void AddTimer(float time, Action callback)
     {
         timers.Add(new Timer(time, callback));

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BulletPool : GenericObjectPool<Bullet>
+namespace Object_Pool
 {
+    public class BulletPool : GenericObjectPool<Bullet>
+    {
+    }
 }

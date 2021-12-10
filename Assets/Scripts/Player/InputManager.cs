@@ -1,34 +1,48 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class InputManager : MonoBehaviour
     {
         public static InputManager instance;
-        private IInputListener InputListener;
 
         private PlayerControls controls;
-        private PlayerControls.ControlsActions playerMovement;
+        private IInputListener InputListener;
+        private Vector2 mouseInput;
 
         private Vector2 movementInput;
-        private Vector2 mouseInput;
+        private PlayerControls.ControlsActions playerMovement;
+
         private void Awake()
         {
             SetSingleton();
             controls = new PlayerControls();
             playerMovement = controls.Controls;
-            playerMovement.Spacebar.performed += _ => InputListener.JumpAction();
             playerMovement.MouseHorizontal.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
             playerMovement.MouseVertical.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
             playerMovement.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
             playerMovement.MouseRightclick.performed += ctx => InputListener?.SecondaryAction(ctx);
             playerMovement.MouseLeftclick.performed += ctx => InputListener?.PrimaryAction(ctx);
-
-            playerMovement.F.performed += _ => InputListener?.SpecialAction();
-            playerMovement.E.performed += _ => InputListener?.UseAction();
-            playerMovement.Tab.performed += _ => InputListener?.SwitchAction();
         }
+
+        private void LateUpdate()
+        {
+            if (InputListener == null)
+                return;
+            InputListener.MoveAction(movementInput);
+            InputListener.MouseAxis(mouseInput);
+        }
+
+        private void OnEnable()
+        {
+            controls.Enable();
+        }
+
+        private void OnDestroy()
+        {
+            controls.Disable();
+        }
+
         private void SetSingleton()
         {
             if (instance == null)
@@ -38,27 +52,13 @@ namespace Player
             else
             {
                 Destroy(this);
-                Debug.Log($"More than one InputManager in scene");
+                Debug.Log("More than one InputManager in scene");
             }
         }
-        private void LateUpdate()
-        {
-            if(InputListener == null)
-                return;
-            InputListener.MoveAction(movementInput);
-            InputListener.MouseAxis(mouseInput);
-        }
+
         public void SetInputListener(IInputListener inputListener)
         {
             InputListener = inputListener;
-        }
-        private void OnEnable()
-        {
-            controls.Enable();
-        }
-        private void OnDestroy()
-        {
-            controls.Disable();
         }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GunSlot : MonoBehaviour
@@ -10,22 +7,17 @@ public class GunSlot : MonoBehaviour
 
     public void SetGun(Weapon weapon)
     {
-        if (heldWeapon != null)
-        {
-            Destroy(heldWeapon.gameObject);
-        }
+        if (heldWeapon != null) Destroy(heldWeapon.gameObject);
         heldWeapon = weapon;
         PositionGunInPlace();
     }
 
     public Weapon[] GetWeaponUpgrades()
     {
-        if (heldWeapon == null)
-        {
-            return startWeaponOptions;
-        }
+        if (heldWeapon == null) return startWeaponOptions;
         return heldWeapon.upgradeVariants;
     }
+
     private void PositionGunInPlace()
     {
         heldWeapon.transform.parent = transform;

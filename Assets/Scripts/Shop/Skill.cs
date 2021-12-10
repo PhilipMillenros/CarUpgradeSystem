@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,12 +15,13 @@ public class Skill : MonoBehaviour
     public TextMeshProUGUI skillLevelText;
     [SerializeField] private PlayerClient buyer; //Temp for networking
     private SkillPointShop shop;
-    
+
     private void Awake()
     {
         shop = GetComponentInParent<SkillPointShop>();
         skillLevelText = GetComponentInChildren<TextMeshProUGUI>();
     }
+
     public void BuySkill()
     {
         shop.BuySkill(buyer, this);

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ObstaclePool : GenericObjectPool<Obstacle>
+namespace Object_Pool
 {
+    public class ObstaclePool : GenericObjectPool<Obstacle>
+    {
+    }
 }
