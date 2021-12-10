@@ -18,4 +18,3 @@ Instead of having a single car class I divided it into smaller components, Steer
 At Assets/Scripts/Vehicle/CarController.cs
 Most places in my code usually uses some kind of dependency injection. An example is the CarController that depends on the Steering and Motor class, I use the SerializeField attribute to inject the dependencies. 
 
-(path%20with%20spaces/readme.md)
