@@ -7,11 +7,12 @@ using Random = UnityEngine.Random;
 public class SpawnExpOrbs : MonoBehaviour
 {
     [SerializeField] private int maxExpOrbsOnField;
-    [SerializeField] private ExpOrbPool objectPool;
     [SerializeField] private float yPosition;
     [SerializeField] private float randomDistanceRange;
+    private GenericObjectPool<Exp> objectPool;
     private void Awake()
     {
+        objectPool = ExpOrbPool.Instance;
         Exp.OnExpPickup += ReCycleOrb;
         for (int i = 0; i < maxExpOrbsOnField; i++)
         {

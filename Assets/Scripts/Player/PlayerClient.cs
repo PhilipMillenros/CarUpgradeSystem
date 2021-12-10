@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class PlayerClient : MonoBehaviour, IEntity
 {
-    [HideInInspector] public float experience;
     [HideInInspector] public float experienceThreshold;
     [SerializeField] public int skillPoints;
     [SerializeField] private float regenerationInterval;
-    public static Action<PlayerClient> OnAnyPlayerLevelUp;
     
     public float regeneration;
     public float reloadTime;
@@ -20,6 +18,10 @@ public class PlayerClient : MonoBehaviour, IEntity
     public float Health { get; set; }
     public float Armor { get; set; }
     public float Damage { get; set; }
+    
+    public float Experience { get; set; }
+    
+    public static Action<PlayerClient> OnAnyPlayerLevelUp;
 
     private void Awake()
     {
@@ -28,8 +30,8 @@ public class PlayerClient : MonoBehaviour, IEntity
     }
     public void GainExp(float amount)
     {
-        experience += amount;
-        if (experience > experienceThreshold)
+        Experience += amount;
+        if (Experience > experienceThreshold)
         {
             OnAnyPlayerLevelUp.Invoke(this);
         }
@@ -40,7 +42,7 @@ public class PlayerClient : MonoBehaviour, IEntity
         Health += regeneration;
         CallbackTimer.AddTimer(regenerationInterval, Regenerate);
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, IEntity sender)
     {
         if(Armor >= damage)
             return;

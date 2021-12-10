@@ -14,10 +14,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IEntity stats))
+        if (other.TryGetComponent(out IEntity entity))
         {
-            stats.TakeDamage(damage);
-            Destroy(this);
+            entity.TakeDamage(damage, entity);
+            BulletPool.Instance.ReturnToPool(this);
         }
     }
 }

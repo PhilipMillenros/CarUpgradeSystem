@@ -189,11 +189,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 4
-  bulletSpeed: 20
-  bulletSize: {x: 0.5, y: 0.5, z: 0.5}
+  bulletSpeed: 24
+  bulletSize: {x: 0.7, y: 0.7, z: 0.7}
   bulletLifeTime: 5
-  weaponReloadTimeMultiplier: 1
-  reloadTime: 0.5
+  weaponReloadTimeMultiplier: 0.7
+  reloadTime: 0.2
   displayPrefab: {fileID: 2852078577396181860, guid: f67371692f002404bbe1e50951801b0e,
     type: 3}
   upgradeVariants: []
