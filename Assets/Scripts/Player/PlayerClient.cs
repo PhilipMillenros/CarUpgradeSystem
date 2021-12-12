@@ -21,11 +21,12 @@ public class PlayerClient : MonoBehaviour, IEntity
     [SerializeField] private CarMotor carMotor;
     [SerializeField] private PlayerCarController carController;
     [SerializeField] private Steering steering;
+    [SerializeField] private Rigidbody rb;
 
     private void Awake()
     {
         Health = maxHealth;
-        carMotor.SetController(carController);
+        carMotor.SetMotor(carController, rb);
         steering.SetSteering(carController);
         
         Regenerate();

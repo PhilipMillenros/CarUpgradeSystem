@@ -8,23 +8,20 @@ namespace Vehicle
         [SerializeField] private float forwardSpeed;
         [SerializeField] private float reverseSpeed;
         [SerializeField] private float turnSpeed;
-        public Rigidbody sphereRB;
+        [HideInInspector] public Rigidbody sphereRB;
         public float speedMultiplier;
         private float moveInput;
         private IMovementInput carController;
 
         private void Awake()
         {
-            if (carController == null)
-            {
-                Debug.Log($"Missing movement input component at {name}");
-            }
             sphereRB.transform.parent = null;
         }
 
-        public void SetController(IMovementInput controller)
+        public void SetMotor(IMovementInput controller, Rigidbody rb) 
         {
             carController = controller;
+            sphereRB = rb;
         }
         private void FixedUpdate()
         {
