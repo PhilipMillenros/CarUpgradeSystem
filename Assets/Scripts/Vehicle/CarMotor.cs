@@ -8,33 +8,33 @@ namespace Vehicle
         [SerializeField] private float forwardSpeed;
         [SerializeField] private float reverseSpeed;
         [SerializeField] private float turnSpeed;
-        [HideInInspector] public Rigidbody sphereRB;
+        [HideInInspector] public Rigidbody sphereRb;
         public float speedMultiplier;
         private float moveInput;
         private IMovementInput carController;
 
         private void Awake()
         {
-            sphereRB.transform.parent = null;
+            sphereRb.transform.parent = null;
         }
 
-        public void SetMotor(IMovementInput controller, Rigidbody rb) 
+        public void SetMotor(IMovementInput carController, Rigidbody sphereRb) 
         {
-            carController = controller;
-            sphereRB = rb;
+            this.carController = carController;
+            this.sphereRb = sphereRb;
         }
         private void FixedUpdate()
         {
             Thrust();
             if (moveInput == 0) return;
-            sphereRB.AddForce(transform.forward * (moveInput * speedMultiplier), ForceMode.Acceleration);
+            sphereRb.AddForce(transform.forward * (moveInput * speedMultiplier), ForceMode.Acceleration);
         }
         public void Thrust()
         {
             moveInput = carController.Vertical * (carController.Vertical > 0 ? forwardSpeed : reverseSpeed) +
                         Mathf.Abs(turnSpeed * carController.Horizontal) * carController.Vertical;
 
-            transform.position = sphereRB.transform.position;
+            transform.position = sphereRb.transform.position;
         }
     }
 }

@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
     protected void Start()
     {
         playerClient = GetComponentInParent<PlayerClient>();
-        movement = transform.root.GetComponent<CarMotor>().sphereRB;
+        movement = transform.root.GetComponent<CarMotor>().sphereRb;
         PlayerCarController = transform.root.GetComponent<PlayerCarController>();
     }
 
