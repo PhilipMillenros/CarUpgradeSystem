@@ -3099,9 +3099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afb868f70757e04088505fbc8e0effc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motor: {fileID: 712989543}
-  steering: {fileID: 712989544}
-  guns: []
+  isShooting: 0
 --- !u!114 &712989541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3127,6 +3125,10 @@ MonoBehaviour:
   - {fileID: 181833412}
   weaponUpgrades: 0
   level: 0
+  carMotor: {fileID: 712989543}
+  carController: {fileID: 712989540}
+  steering: {fileID: 712989544}
+  rb: {fileID: 384724803}
 --- !u!114 &712989543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3139,15 +3141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed97d143d37adc04d810766a6163cecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelObjects:
-  - {fileID: 6506744788388032096}
-  - {fileID: 6506744788388032108}
-  - {fileID: 6506744788388032110}
-  - {fileID: 6506744788388032098}
   forwardSpeed: 200
   reverseSpeed: 110
   turnSpeed: 0.48
-  sphereRB: {fileID: 384724803}
+  sphereRb: {fileID: 0}
   speedMultiplier: 1
 --- !u!114 &712989544
 MonoBehaviour:
@@ -6756,6 +6753,10 @@ MonoBehaviour:
   - {fileID: 1505495833}
   weaponUpgrades: 0
   level: 0
+  carMotor: {fileID: 0}
+  carController: {fileID: 0}
+  steering: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!54 &1325329322
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6797,15 +6798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed97d143d37adc04d810766a6163cecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelObjects:
-  - {fileID: 1139799268}
-  - {fileID: 184987618}
-  - {fileID: 455948252}
-  - {fileID: 1663311036}
   forwardSpeed: 200
   reverseSpeed: 110
   turnSpeed: 0.48
-  sphereRB: {fileID: 739877766}
+  sphereRb: {fileID: 0}
   speedMultiplier: 1
 --- !u!114 &1325329325
 MonoBehaviour:
@@ -6843,9 +6839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afb868f70757e04088505fbc8e0effc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motor: {fileID: 1325329324}
-  steering: {fileID: 1325329325}
-  guns: []
+  isShooting: 0
 --- !u!65 &1325329327
 BoxCollider:
   m_ObjectHideFlags: 0
