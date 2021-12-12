@@ -16,6 +16,7 @@ public class Weapon : MonoBehaviour
     private bool isShooting;
     protected Rigidbody movement;
     private PlayerClient playerClient;
+    protected PlayerCarController PlayerCarController;
 
     private bool reloaded = true;
 
@@ -23,11 +24,12 @@ public class Weapon : MonoBehaviour
     {
         playerClient = GetComponentInParent<PlayerClient>();
         movement = transform.root.GetComponent<CarMotor>().sphereRB;
-        transform.root.GetComponent<CarController>().guns.Add(this);
+        PlayerCarController = transform.root.GetComponent<PlayerCarController>();
     }
 
     protected void Update()
     {
+        isShooting = PlayerCarController.isShooting;
         if (!reloaded)
         {
             reloadTime -= Time.deltaTime;
@@ -41,17 +43,6 @@ public class Weapon : MonoBehaviour
             reloadTime = playerClient.reloadTime * weaponReloadTimeMultiplier;
         }
     }
-
-    private void OnDestroy()
-    {
-        transform.root.GetComponent<CarController>().guns.Remove(this);
-    }
-
-    public void IsShooting(bool isShooting)
-    {
-        this.isShooting = isShooting;
-    }
-
     protected virtual void Shoot()
     {
     }

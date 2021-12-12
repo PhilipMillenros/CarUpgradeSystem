@@ -5,16 +5,11 @@ using UnityEngine.InputSystem;
 
 namespace Vehicle
 {
-    public class CarController : MonoBehaviour, IInputListener
+    public class PlayerCarController : MonoBehaviour, IInputListener, IMovementInput
     {
-        [SerializeField] private CarMotor motor;
-        [SerializeField] private Steering steering;
-        public List<Weapon> guns = new();
-        private Vector2Int input;
-        private float primaryActionDelay = 1;
-        private bool primaryActionHeld;
-        private bool secondaryActionHeld;
-
+        public bool isShooting;
+        public float Horizontal { get; private set; }
+        public float Vertical { get; private set; }
         private void Start()
         {
             InputManager.instance.SetInputListener(this);
@@ -22,13 +17,12 @@ namespace Vehicle
 
         public void MoveAction(Vector2 input)
         {
-            steering.SetSteering(input);
-            motor.Thrust(input);
+            Vertical = input.y;
+            Horizontal = input.x;
         }
 
         public void MouseAxis(Vector2 input)
         {
-            //thirdPersonCamera.SetInput(input);
         }
 
         public void JumpAction()
@@ -37,11 +31,19 @@ namespace Vehicle
 
         public void PrimaryAction(InputAction.CallbackContext ctx)
         {
-            for (var i = 0; i < guns.Count; i++) guns[i]?.IsShooting(ctx.control.IsPressed());
+            isShooting = ctx.control.IsPressed();
         }
 
         public void SecondaryAction(InputAction.CallbackContext ctx)
         {
         }
+
+        
+    }
+
+    public interface IMovementInput
+    {
+        public float Horizontal { get; }
+        public float Vertical { get; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Vehicle
@@ -18,10 +19,24 @@ namespace Vehicle
         private Vector2 input;
         private float steering;
         private float timerValue;
+        private IMovementInput carController;
 
-        public void SetSteering(Vector2 controllerInput)
+        private void Start()
         {
-            input = controllerInput;
+            carController = GetComponent<IMovementInput>();
+            if(carController == null)
+                Debug.Log($"Missing movement input at {name}");
+        }
+
+        private void Update()
+        {
+            SetSteering();
+        }
+
+        public void SetSteering()
+        {
+            input.x = carController.Horizontal;
+            input.y = carController.Vertical;
             if (input.x != 0 || input.y != 0)
             {
                 input.x = ConvertToWholeNumber(input.x);
