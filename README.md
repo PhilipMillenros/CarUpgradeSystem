@@ -12,8 +12,8 @@ At Assets/Scripts/Object Pool/GenericObjectPool.cs
 Each object pool only needs one instance and that's why they have a singleton. This is a handy way of having easy access to each pool, for example BulletPool.Instance
 
 ## Dependency Injection
-At Assets/Scripts/Vehicle/CarController.cs
-Most places in my code usually uses some kind of dependency injection. An example is the CarController that depends on the Steering and Motor class, I use the SerializeField attribute to inject the dependencies. 
+At Assets/Scripts/Vehicle/CarMotor.cs
+CarMotor has a IMovementInput reference, CarMotor can read the Horizontal/Vertical value from any script that derives from an IMovementInput interface. This makes it easier when adding A.I's and networking + other inputs. The dependencies gets injected in the SetMotor method by the PlayerClient.cs class (Assets/Scripts/Player/PlayerClient.cs). 
 ## Component Pattern
 
 At Assets/Scripts/Vehicle/CarController.cs
