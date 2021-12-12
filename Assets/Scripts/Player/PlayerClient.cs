@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Vehicle;
 
 public class PlayerClient : MonoBehaviour, IEntity
 {
@@ -17,10 +18,16 @@ public class PlayerClient : MonoBehaviour, IEntity
     public float Health { get; set; }
     public float Armor { get; set; }
     public float Damage { get; set; }
+    [SerializeField] private CarMotor carMotor;
+    [SerializeField] private PlayerCarController carController;
+    [SerializeField] private Steering steering;
 
     private void Awake()
     {
         Health = maxHealth;
+        carMotor.SetController(carController);
+        steering.SetSteering(carController);
+        
         Regenerate();
     }
 

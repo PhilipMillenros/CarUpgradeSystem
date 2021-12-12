@@ -30,10 +30,14 @@ namespace Vehicle
 
         private void Update()
         {
-            SetSteering();
+            Steer();
         }
 
-        public void SetSteering()
+        public void SetSteering(IMovementInput movementInput)
+        {
+            carController = movementInput;
+        }
+        public void Steer()
         {
             input.x = carController.Horizontal;
             input.y = carController.Vertical;

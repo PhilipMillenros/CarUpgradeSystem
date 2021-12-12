@@ -15,7 +15,6 @@ namespace Vehicle
 
         private void Awake()
         {
-            carController = GetComponent<IMovementInput>();
             if (carController == null)
             {
                 Debug.Log($"Missing movement input component at {name}");
@@ -23,6 +22,10 @@ namespace Vehicle
             sphereRB.transform.parent = null;
         }
 
+        public void SetController(IMovementInput controller)
+        {
+            carController = controller;
+        }
         private void FixedUpdate()
         {
             Thrust();

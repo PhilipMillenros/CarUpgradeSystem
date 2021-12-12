@@ -13,6 +13,7 @@ namespace Vehicle
         private void Start()
         {
             InputManager.instance.SetInputListener(this);
+            
         }
 
         public void MoveAction(Vector2 input)
